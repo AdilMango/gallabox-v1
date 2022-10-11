@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gallabox/core/services/storage/hive_storage_provider.dart';
 import 'package:gallabox/core/services/storage/storage_service.dart';
 import 'package:gallabox/core/services/storage/storage_service_provider.dart';
+import 'package:gallabox/gallabox_app.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() {
@@ -18,7 +19,7 @@ void main() {
           overrides: [
             storageServiceProvider.overrideWithValue(initializedStorageService),
           ],
-          child: const Center(),
+          child: const GallaboxApp(),
         ),
       );
     },

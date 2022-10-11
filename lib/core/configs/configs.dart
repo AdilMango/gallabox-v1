@@ -8,5 +8,5 @@ class Configs {
   static const String dioCacheForceRefreshKey = 'dio_cache_force_refresh_key';
 
   /// Base API URL of Gallabox API
-  static const String apiBaseUrl = 'https://www.gallabox.com/3';
+  static const String apiBaseUrl = 'https://server.gallabox.com/api/';
 }
