@@ -20,7 +20,11 @@ abstract class HttpService {
   });
 
   /// Http put request
-  Future<dynamic> put();
+  Future<Map<String, dynamic>> put(
+    String endpoint, {
+    Map<String, dynamic>? queryParameters,
+    bool forceRefresh = false,
+  });
 
   /// Http delete request
   Future<dynamic> delete();

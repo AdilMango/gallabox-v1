@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:gallabox/core/configs/configs.dart';
 import 'package:gallabox/core/exceptions/http_exception.dart';
 import 'package:gallabox/core/services/http/dio-interceptors/cache_interceptor.dart';
@@ -14,6 +15,14 @@ class DioHttpService implements HttpService {
     bool enableCaching = true,
   }) {
     dio = dioOverride ?? Dio(baseOptions);
+    dio.interceptors.add(
+      LogInterceptor(
+        requestHeader: true,
+        responseHeader: true,
+        requestBody: true,
+        responseBody: true,
+      ),
+    );
     if (enableCaching) {
       dio.interceptors.add(CacheInterceptor(storageService));
     }
@@ -43,8 +52,9 @@ class DioHttpService implements HttpService {
     Map<String, dynamic>? queryParameters,
     bool forceRefresh = false,
   }) async {
+    await setToken();
     dio.options.extra[Configs.dioCacheForceRefreshKey] = forceRefresh;
-    final Response<dynamic> response = await dio.get<Map<String, dynamic>>(
+    final response = await dio.get<dynamic>(
       endpoint,
       queryParameters: queryParameters,
     );
@@ -55,7 +65,7 @@ class DioHttpService implements HttpService {
         message: response.statusMessage,
       );
     }
-    return response.data as Map<String, dynamic>;
+    return {'results': response.data};
   }
 
   @override
@@ -84,8 +94,33 @@ class DioHttpService implements HttpService {
   }
 
   @override
-  Future<dynamic> put() {
-    // TODO: implement put
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> put(
+    String endpoint, {
+    Map<String, dynamic>? queryParameters,
+    bool forceRefresh = false,
+  }) async {
+    await setToken();
+    dio.options.extra[Configs.dioCacheForceRefreshKey] = forceRefresh;
+    final response = await dio.patch<dynamic>(
+      endpoint,
+      queryParameters: queryParameters,
+    );
+    if (response.data == null || response.statusCode != 200) {
+      throw HttpException(
+        title: 'Http Error!',
+        statusCode: response.statusCode,
+        message: response.statusMessage,
+      );
+    }
+    return {'results': response.data};
+  }
+
+  /// Set fake token for testing
+  Future<void> setToken() async {
+    debugPrint(' Token ');
+    //final token = await getToken();
+    const token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGdhbGxhYm94LmNvbSIsIm5hbWUiOiJDaGVubmFtIiwiaWQiOiI2MjI5YmI4YjZiYWFjOTAwMDRkZjhlYmYiLCJpYXQiOjE2NjU2NDQzNjgsImV4cCI6MTY2NjUwODM2OH0.-MjUzMa9tdqeGaHh0rWT5WSXGueEwXfa3qI32OlqHAg';
+    dio.options.headers['Authorization'] = 'Bearer $token';
   }
 }

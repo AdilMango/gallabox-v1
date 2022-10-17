@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gallabox/core/configs/styles/app_themes.dart';
+import 'package:gallabox/features/contact/views/pages/contact_list_page.dart';
 
 ///Main App Widget
 class GallaboxApp extends StatelessWidget {
@@ -7,13 +9,15 @@ class GallaboxApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Gallabox',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      home: Scaffold(
+      themeMode: ThemeMode.dark,
+      theme: AppThemes.lightTheme,
+      darkTheme: AppThemes.darkTheme,
+      home: const Scaffold(
         body: Center(
-          child: Text('Gallabox'),
+          child: ContactListPage(),
         ),
       ),
     );
