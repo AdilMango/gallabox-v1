@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gallabox/core/models/paginated_response.dart';
+import 'package:gallabox/core/models/pagination/paginated_response.dart';
 import 'package:gallabox/core/services/http/http_service_provider.dart';
 import 'package:gallabox/features/contact/models/contact.dart';
 import 'package:gallabox/features/contact/repositories/http_contact_repository.dart';
@@ -18,6 +18,12 @@ abstract class ContactRepository {
 
   /// Request to get a list of contacts
   Future<PaginatedResponse<Contact>> getContacts({
+    int page = 1,
+    bool forceRefresh = false,
+  });
+
+  /// Request to get a list of contacts
+  Future<List<Contact>> getContactsPagination({
     int page = 1,
     bool forceRefresh = false,
   });

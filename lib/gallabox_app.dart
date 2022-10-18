@@ -15,7 +15,7 @@ class GallaboxApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
-      home: const Scaffold(
+      home: Scaffold(
         body: Center(
           child: ContactListPage(),
         ),

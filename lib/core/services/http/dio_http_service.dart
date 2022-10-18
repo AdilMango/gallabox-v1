@@ -120,7 +120,7 @@ class DioHttpService implements HttpService {
     debugPrint(' Token ');
     //final token = await getToken();
     const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGdhbGxhYm94LmNvbSIsIm5hbWUiOiJDaGVubmFtIiwiaWQiOiI2MjI5YmI4YjZiYWFjOTAwMDRkZjhlYmYiLCJpYXQiOjE2NjU2NDQzNjgsImV4cCI6MTY2NjUwODM2OH0.-MjUzMa9tdqeGaHh0rWT5WSXGueEwXfa3qI32OlqHAg';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEBtYW5nb2xlYXAuY29tIiwibmFtZSI6IllvZ2VzaCIsImlkIjoiNjAwNWVjNDA1ZGRkNzEwMDA0MzIzOTBjIiwiaWF0IjoxNjY2MTA2MjMxLCJleHAiOjE2NjY5NzAyMzF9.jeNze44gDq29Kx8r-A2lQzEo7kQLn2bmh99g_N5KC-k';
     dio.options.headers['Authorization'] = 'Bearer $token';
   }
 }
